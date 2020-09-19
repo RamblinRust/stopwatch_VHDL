@@ -1,3 +1,5 @@
+--Not finished
+
 --A stopwatch that will measure to 1/100 s
 --will have a start/stop button
 
