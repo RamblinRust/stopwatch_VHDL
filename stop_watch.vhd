@@ -20,13 +20,48 @@ entity stop_watch is
 end stop_watch;
 
 architecture watch of stop_watch is
-	signal w_clock 									: std_logic;
-	signal r_started									: std_logic := '0';
-	signal r_thousandths, r_thousandths_next	: std_logic_vector(3 downto 0) := (others => '0');--curr and next 1/1000
-	signal r_hundredths, r_hundredths_next		: std_logic_vector(3 downto 0) := (others => '0');--curr and next 1/100
-	signal r_tenths, r_tenths_next	   		: std_logic_vector(3 downto 0) := (others => '0');--curr and next 1/10
-	signal r_ones, r_ones_next						: std_logic_vector(3 downto 0) := (others => '0');--curr and next 1
-	signal r_tens, r_tens_next						: std_logic_vector(3 downto 0) := (others => '0');--curr and next 10
+	
+	component clock is
+		port(
+			  i_50MHz	: in  std_logic;
+			  o_1Hz		: out std_logic;
+			  o_1kHz		: out std_logic;
+			  o_1MHz		: out std_logic 
+			 );
+	end component;
+	
+	component sev_segs is
+		port(
+			i_number	: in  std_logic_vector(3 downto 0);
+			i_dp		: in 	std_logic;
+			o_top		: out std_logic;
+			o_rtop	: out std_logic;
+			o_rbot	: out std_logic;
+			o_bot		: out std_logic;
+			o_lbot	: out std_logic;
+			o_ltop	: out std_logic;
+			o_mid		: out std_logic;
+			o_dp		: out std_logic
+			);
+	end component;
+	
+	component modCounter is
+		port(
+				i_clk : in std_logic;--clock
+				i_en	: in std_logic;--enable 
+				o_num	: out std_logic_vector(3 downto 0); --number out
+				o_co	: out std_logic --carry out
+			 );
+	end component;
+	
+	signal w_clk 		: std_logic := '0';
+	signal w_co0, w_co1, w_co2, w_co3 : std_logic := '0';
+	signal r_started		: std_logic := '0';
+	signal r_thousandths	: std_logic_vector(3 downto 0) := (others => '0');--curr 1/1000
+	signal r_hundredths	: std_logic_vector(3 downto 0) := (others => '0');--curr 1/100
+	signal r_tenths		: std_logic_vector(3 downto 0) := (others => '0');--curr 1/10
+	signal r_ones			: std_logic_vector(3 downto 0) := (others => '0');--curr 1
+	signal r_tens			: std_logic_vector(3 downto 0) := (others => '0');--curr 10
 begin
 	
 	--clock instance declaration
@@ -34,10 +69,11 @@ begin
 		port map(
 					i_50MHz	=> i_50MHz,
 					o_1Hz		=> open,
-					o_1kHz	=> w_clock,
+					o_1kHz	=> w_clk,
 					o_1MHz	=> open
 				  );
-				  
+	--end clock declaration
+	
 	--seven segment instance declarations			  
 	sev_seg0 : sev_segs
 		port map(
@@ -110,39 +146,52 @@ begin
 				  );
 	--end seven seg declarations
 	
-	--was having issue deciding when the time should start counting
-	--will have up to a 1ms error 
-	process(w_clock, r_started, i_cl)
-	begin
-		--defaults
-		r_thousandths	<= r_thousandths;
-		r_hundredths	<= r_hundredths;
-		r_tenths			<= r_tenths;
-		r_ones			<= r_ones;
-		r_tens		 	<= t_tens;
-		
-		--if cleared or started
-		if(i_cl) then
-			r_thousandths	<= (others => '0');
-			r_hundredths	<= (others => '0');
-			r_tenths			<= (others => '0');
-			r_ones			<= (others => '0');
-			r_tens		 	<= (others => '0');
---		elsif(i_st) then
---			if(r_started = '0') then r_started <= '1';
---			else r_started = '0';
-		elsif(r_started = '1') then
-			r_thousandths	<= r_thousandths_next;
-			r_hundredths	<= r_hundredths_next;
-			r_tenths			<= r_tenths_next;
-			r_ones			<= r_ones_next;
-			r_tens		 	<= t_tens_next;
-		end if;
-	end process
+	--mod 10 declarations
+	mod10_0 : modCounter
+		port map(
+					i_clk => w_clk,
+					i_en => r_started,
+					o_num => r_thousandths,
+					o_co => w_co0
+				  );
+				  
+	mod10_1 : modCounter
+		port map(
+					i_clk => w_clk,
+					i_en => w_co0,
+					o_num => r_hundredths,
+					o_co => w_co1
+				  );
+				  
+	mod10_2 : modCounter
+		port map(
+					i_clk => w_clk,
+					i_en => w_co1,
+					o_num => r_tenths,
+					o_co => w_co2
+				  );
 	
-	process(r_thousandths)
+	mod10_3 : modCounter
+		port map(
+					i_clk => w_clk,
+					i_en => w_co2,
+					o_num => r_ones,
+					o_co => w_co3
+				  );
+				  
+	mod10_4 : modCounter
+		port map(
+					i_clk => w_clk,
+					i_en => w_co3,
+					o_num => r_tens,
+					o_co => open
+				  );
+	--end mod 10 declarations
+	
+	--laches and unlaches the start
+	process(i_st)
 	begin
-		r_thousandths_next <= r_thousandths + 1;
-		if(r_thousands = 
+		r_started <= not(r_started);
+	end process;
 	
 end watch;

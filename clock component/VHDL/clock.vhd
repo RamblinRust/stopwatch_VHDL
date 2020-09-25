@@ -14,7 +14,7 @@ entity clock is
 end clock;
 
 architecture divider of clock is
-	signal w_1MHz, w_1kHz : std_logic;
+	signal r_1MHz, r_1kHz : std_logic;
 begin
 	
 	
