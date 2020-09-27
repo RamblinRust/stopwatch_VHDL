@@ -21,8 +21,10 @@ begin
 	--on the clock update the number and carry out registers
 	process (i_clk) 
 	begin
-		r_number <= r_next_number;
-		r_co <= r_next_co;
+		if rising_edge(i_clk) then
+			r_number <= r_next_number;
+			r_co <= r_next_co;
+		end if;
 	end process;
 	
 	--update next number and next carry out 
