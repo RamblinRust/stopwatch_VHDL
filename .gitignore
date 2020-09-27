@@ -1,2 +1,6 @@
 
 *.bak
+*.flock
+*.db_info
+*.qpf
+*.qsf
