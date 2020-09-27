@@ -33,7 +33,6 @@ architecture watch of stop_watch is
 	component sev_segs is
 		port(
 			i_number	: in  std_logic_vector(3 downto 0);
-			i_dp		: in 	std_logic;
 			o_top		: out std_logic;
 			o_rtop	: out std_logic;
 			o_rbot	: out std_logic;
@@ -77,7 +76,6 @@ begin
 	sev_seg0 : sev_segs
 		port map(
 					i_number	=> r_thousandths,
-					i_dp		=> '0',
 					o_top		=> o_top0,
 					o_rtop	=> o_rtop0,
 					o_rbot	=> o_rbot0,
@@ -90,7 +88,6 @@ begin
 	sev_seg1 : sev_segs
 		port map(
 					i_number	=> r_hundredths,
-					i_dp		=> '0',
 					o_top		=> o_top1,
 					o_rtop	=> o_rtop1,
 					o_rbot	=> o_rbot1,
@@ -103,7 +100,6 @@ begin
 	sev_seg2 : sev_segs
 		port map(
 					i_number	=> r_tenths,
-					i_dp		=> '0',
 					o_top		=> o_top2,
 					o_rtop	=> o_rtop2,
 					o_rbot	=> o_rbot2,
@@ -116,7 +112,6 @@ begin
 	sev_seg3 : sev_segs
 		port map(
 					i_number	=> r_ones,
-					i_dp		=> '1',
 					o_top		=> o_top3,
 					o_rtop	=> o_rtop3,
 					o_rbot	=> o_rbot3,
@@ -129,7 +124,6 @@ begin
 	sev_seg4 : sev_segs
 		port map(
 					i_number	=> r_tens,
-					i_dp		=> '0',
 					o_top		=> o_top4,
 					o_rtop	=> o_rtop4,
 					o_rbot	=> o_rbot4,
