@@ -8,7 +8,7 @@ use ieee.std_logic_1164.all;
 entity sev_segs is
 	port(
 		i_number	: in  std_logic_vector(3 downto 0);
-		i_dp		: in 	std_logic;
+		--i_dp		: in 	std_logic;
 		o_top		: out std_logic;--bit 0
 		o_rtop	: out std_logic;--1
 		o_rbot	: out std_logic;--2
