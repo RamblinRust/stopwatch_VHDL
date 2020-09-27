@@ -40,12 +40,12 @@ begin
 	process (i_50MHz, r_1MHz, r_1kHz)
 	begin
 		--defaults
-		--r_1MHz_next <= r_1MHz;
-		--r_1kHz_next <= r_1kHz;
-		--r_1Hz_next <= r_1Hz;
+		r_1MHz_next <= r_1MHz;
+		r_1kHz_next <= r_1kHz;
+		r_1Hz_next <= r_1Hz;
 		
-		if rising_edge(i_50MHz) then
-			r_1MHz_next <= r_1MHz;
+		if (i_50MHz = '0') then
+			--r_1MHz_next <= r_1MHz;
 			r_50_cntr_next <= r_50_cntr + 1;
 			if(r_50_cntr = to_unsigned(49,6)) then
 				r_50_cntr_next <= to_unsigned(0,6);
@@ -53,8 +53,8 @@ begin
 			end if;
 		end if;
 		
-		if rising_edge(r_1MHz) then
-			r_1kHz_next <= r_1kHz;
+		if (r_1MHz = '0') then
+			--r_1kHz_next <= r_1kHz;
 			r_1000_cntr0_next <= r_1000_cntr0 + 1;
 			if(r_1000_cntr0 = to_unsigned(999,10)) then
 				r_1000_cntr0_next <= to_unsigned(0,10);
@@ -62,8 +62,8 @@ begin
 			end if;
 		end if;
 		
-		if rising_edge(r_1kHz) then
-			r_1Hz_next <= r_1Hz;
+		if (r_1kHz = '0') then
+			--r_1Hz_next <= r_1Hz;
 			r_1000_cntr1_next <= r_1000_cntr1 + 1;
 			if(r_1000_cntr1 = to_unsigned(999,10)) then
 				r_1000_cntr1_next <= to_unsigned(0,10);
