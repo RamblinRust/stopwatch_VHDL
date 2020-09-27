@@ -15,8 +15,10 @@ entity sev_segs is
 		o_bot		: out std_logic;--3
 		o_lbot	: out std_logic;--4
 		o_ltop	: out std_logic;--5
-		o_mid		: out std_logic;--6
-		o_dp		: out std_logic
+		o_mid		: out std_logic--6
+		--can't find the decimal point in the de-10 manual,
+		--so I'm removing this output
+		--o_dp		: out std_logic
 		);
 end sev_segs;
 
@@ -50,5 +52,5 @@ begin
 	o_lbot <= w_segments(4);
 	o_ltop <= w_segments(5);
 	o_mid	 <= w_segments(6);
-	o_dp	<= i_dp;
+	--o_dp	<= i_dp;
 end decoder;
