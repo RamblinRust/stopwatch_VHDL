@@ -3,6 +3,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity clock is
 	port(
@@ -14,9 +15,66 @@ entity clock is
 end clock;
 
 architecture divider of clock is
-	signal r_1MHz, r_1kHz : std_logic;
+	signal r_1MHz, r_1MHz_next : std_logic := '0';
+	signal r_1kHz, r_1kHz_next : std_logic := '0';
+	signal r_1Hz, r_1Hz_next : std_logic := '0';
+	signal r_50_cntr, r_50_cntr_next : unsigned(5 downto 0) := to_unsigned(0,6);
+	signal r_1000_cntr0, r_1000_cntr1 : unsigned(9 downto 0) := to_unsigned(0,10);
+	signal r_1000_cntr0_next, r_1000_cntr1_next : unsigned(9 downto 0) := to_unsigned(0,10);
 begin
 	
+	process (i_50MHz)
+	begin
+		--update values
+		if rising_edge(i_50MHz) then
+			r_50_cntr <= r_50_cntr_next;
+			r_1000_cntr0 <= r_1000_cntr0_next;
+			r_1000_cntr1 <= r_1000_cntr1_next;
+			r_1MHz <= r_1MHz_next;
+			r_1kHz <= r_1kHz_next;
+			r_1Hz <= r_1Hz_next;
+		end if;
+	end process;
 	
+	--not right yet. double latch
+	process (i_50MHz, r_1MHz, r_1kHz)
+	begin
+		--defaults
+		--r_1MHz_next <= r_1MHz;
+		--r_1kHz_next <= r_1kHz;
+		--r_1Hz_next <= r_1Hz;
+		
+		if rising_edge(i_50MHz) then
+			r_1MHz_next <= r_1MHz;
+			r_50_cntr_next <= r_50_cntr + 1;
+			if(r_50_cntr = to_unsigned(49,6)) then
+				r_50_cntr_next <= to_unsigned(0,6);
+				r_1MHz_next <= not(r_1MHz);
+			end if;
+		end if;
+		
+		if rising_edge(r_1MHz) then
+			r_1kHz_next <= r_1kHz;
+			r_1000_cntr0_next <= r_1000_cntr0 + 1;
+			if(r_1000_cntr0 = to_unsigned(999,10)) then
+				r_1000_cntr0_next <= to_unsigned(0,10);
+				r_1kHz_next <= not(r_1kHz);
+			end if;
+		end if;
+		
+		if rising_edge(r_1kHz) then
+			r_1Hz_next <= r_1Hz;
+			r_1000_cntr1_next <= r_1000_cntr1 + 1;
+			if(r_1000_cntr1 = to_unsigned(999,10)) then
+				r_1000_cntr1_next <= to_unsigned(0,10);
+				r_1Hz_next <= not(r_1Hz);
+			end if;
+		end if;
+		
+	end process;
+	
+	o_1Hz <= r_1Hz;
+	o_1kHz <= r_1kHz;
+	o_1MHz <= r_1MHz;
 	
 end divider;
