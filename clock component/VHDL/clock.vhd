@@ -37,12 +37,15 @@ begin
 	end process;
 	
 	--not right yet. double latch
-	process (i_50MHz, r_1MHz, r_1kHz)
+	process (i_50MHz, r_1MHz, r_1kHz,r_1Hz, r_50_cntr, r_1000_cntr0, r_1000_cntr1)
 	begin
 		--defaults
 		r_1MHz_next <= r_1MHz;
 		r_1kHz_next <= r_1kHz;
 		r_1Hz_next <= r_1Hz;
+		r_50_cntr_next <= r_50_cntr_next;
+		r_1000_cntr0_next <= r_1000_cntr0_next;
+		r_1000_cntr1_next <= r_1000_cntr1_next;
 		
 		if (i_50MHz = '0') then
 			--r_1MHz_next <= r_1MHz;
