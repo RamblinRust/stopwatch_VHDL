@@ -15,7 +15,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: stop_watch.tcl
-# Generated on: Sat Sep 26 23:32:13 2020
+# Generated on: Sun Sep 27 20:07:12 2020
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -42,7 +42,7 @@ if {[is_project_open]} {
 # Make assignments
 if {$make_assignments} {
 	set_global_assignment -name FAMILY "Cyclone V"
-	set_global_assignment -name DEVICE 5CGXFC7C7F23C8
+	set_global_assignment -name DEVICE 5CSXFC6D6F31C6
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "22:19:30  SEPTEMBER 26, 2020"
 	set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Lite Edition"
@@ -57,6 +57,44 @@ if {$make_assignments} {
 	set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 	set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 	set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+	set_location_assignment PIN_AF14 -to i_50MHz
+	set_location_assignment PIN_AA15 -to i_clr
+	set_location_assignment PIN_AA14 -to i_st
+	set_location_assignment PIN_AG16 -to o_bot0
+	set_location_assignment PIN_AD17 -to o_bot1
+	set_location_assignment PIN_Y17 -to o_bot2
+	set_location_assignment PIN_AA20 -to o_bot3
+	set_location_assignment PIN_AE23 -to o_bot4
+	set_location_assignment PIN_AH17 -to o_lbot0
+	set_location_assignment PIN_AE18 -to o_lbot1
+	set_location_assignment PIN_Y18 -to o_lbot2
+	set_location_assignment PIN_AC20 -to o_lbot3
+	set_location_assignment PIN_AG23 -to o_lbot4
+	set_location_assignment PIN_AG18 -to o_ltop0
+	set_location_assignment PIN_AE17 -to o_ltop1
+	set_location_assignment PIN_AF18 -to o_ltop2
+	set_location_assignment PIN_AA19 -to o_ltop3
+	set_location_assignment PIN_AF23 -to o_ltop4
+	set_location_assignment PIN_AH18 -to o_mid0
+	set_location_assignment PIN_V17 -to o_mid1
+	set_location_assignment PIN_W16 -to o_mid2
+	set_location_assignment PIN_AD20 -to o_mid3
+	set_location_assignment PIN_AH22 -to o_mid4
+	set_location_assignment PIN_AG17 -to o_rbot0
+	set_location_assignment PIN_AE16 -to o_rbot1
+	set_location_assignment PIN_AA18 -to o_rbot2
+	set_location_assignment PIN_AD19 -to o_rbot3
+	set_location_assignment PIN_AE22 -to o_rbot4
+	set_location_assignment PIN_V18 -to o_rtop0
+	set_location_assignment PIN_V16 -to o_rtop1
+	set_location_assignment PIN_AB17 -to o_rtop2
+	set_location_assignment PIN_W19 -to o_rtop3
+	set_location_assignment PIN_AG22 -to o_rtop4
+	set_location_assignment PIN_W17 -to o_top0
+	set_location_assignment PIN_AF16 -to o_top1
+	set_location_assignment PIN_AA21 -to o_top2
+	set_location_assignment PIN_Y19 -to o_top3
+	set_location_assignment PIN_AD21 -to o_top4
 	set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 
 	# Commit assignments
