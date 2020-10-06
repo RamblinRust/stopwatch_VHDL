@@ -46,3 +46,12 @@ output_files/stop_watch.jdi
 output_files/stop_watch.map.rpt
 output_files/stop_watch.sof
 output_files/stop_watch.sta.rpt
+work/_info
+*.mti
+*.mpf
+transcript
+*.wlf
+*.qdb
+*.qpg
+*.qtl
+work/_vmake
