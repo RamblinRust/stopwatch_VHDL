@@ -44,7 +44,8 @@ architecture watch of stop_watch is
 	component modCounter is
 		port(
 				i_clk : in std_logic;--clock
-				i_en	: in std_logic;--enable 
+				i_en	: in std_logic;--enable
+				i_clr	: in std_logic; --clear
 				o_num	: out std_logic_vector(3 downto 0); --number out
 				o_co	: out std_logic --carry out
 			 );
@@ -135,6 +136,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => r_started,
+					i_clr => i_clr,
 					o_num => r_thousandths,
 					o_co => w_co0
 				  );
@@ -143,6 +145,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co0,
+					i_clr => i_clr,
 					o_num => r_hundredths,
 					o_co => w_co1
 				  );
@@ -151,6 +154,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co1,
+					i_clr => i_clr,
 					o_num => r_tenths,
 					o_co => w_co2
 				  );
@@ -159,6 +163,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co2,
+					i_clr => i_clr,
 					o_num => r_ones,
 					o_co => w_co3
 				  );
@@ -167,6 +172,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co3,
+					i_clr => i_clr,
 					o_num => r_tens,
 					o_co => open
 				  );
