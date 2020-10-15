@@ -4,12 +4,12 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity clock_1K is 
+entity clock_1k is 
 	port(
 			i_50MHz	: in	std_logic;
 			o_1KHz	: out	std_logic
 		 );
-end entity;
+end clock_1k;
 
 architecture divider of clock_1K is
 	constant divisor	: integer := 25000;
