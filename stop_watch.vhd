@@ -21,12 +21,10 @@ end stop_watch;
 
 architecture watch of stop_watch is
 	
-	component clock is
+	component clock_1k is
 		port(
 			  i_50MHz	: in  std_logic;
-			  o_1Hz		: out std_logic;
-			  o_1kHz		: out std_logic;
-			  o_1MHz		: out std_logic 
+			  o_1kHz		: out std_logic
 			 );
 	end component;
 	
@@ -63,12 +61,10 @@ architecture watch of stop_watch is
 begin
 	
 	--clock instance declaration
-	clock_inst : clock
+	clock_inst : clock_1k
 		port map(
 					i_50MHz	=> i_50MHz,
-					o_1Hz		=> open,
-					o_1kHz	=> w_clk,
-					o_1MHz	=> open
+					o_1kHz	=> w_clk
 				  );
 	--end clock declaration
 	
