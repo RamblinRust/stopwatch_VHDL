@@ -8,20 +8,24 @@ entity modCounter is
 	port(
 			i_clk : in std_logic;--clock
 			i_en	: in std_logic;--enable 
+			i_clr	: in std_logic; --clear
 			o_num	: out std_logic_vector(3 downto 0); --number out
 			o_co	: out std_logic --carry out
 		 );
 end modCounter;
 
 architecture modulus of modCounter is
-	signal r_number, r_next_number : signed(3 downto 0) := to_signed(0,4);
+	signal r_number, r_next_number : integer := 0;
 	signal r_co, r_next_co : std_logic;
 begin
 	
 	--on the clock update the number and carry out registers
-	process (i_clk) 
+	process (i_clk, i_clr) 
 	begin
-		if rising_edge(i_clk) then
+		if(i_clr = '1') then
+			r_number <= 0;
+			r_co <= '0';
+		elsif rising_edge(i_clk) then
 			r_number <= r_next_number;
 			r_co <= r_next_co;
 		end if;
@@ -39,11 +43,11 @@ begin
 			if(r_number = 8) then
 				r_next_co <= '1';
 			elsif(r_number = 9) then
-				r_next_number <= to_signed(0,4);
+				r_next_number <= 0;
 			end if;
 		end if;
 	end process;
 	
-	o_num <= std_logic_vector(r_number);
+	o_num <= std_logic_vector(to_unsigned(r_number,o_num'length));
 	o_co <= r_co;
 end modulus;
