@@ -15,7 +15,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: stop_watch.tcl
-# Generated on: Sun Sep 27 20:07:12 2020
+# Generated on: Thu Oct 15 02:09:21 2020
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -52,11 +52,12 @@ if {$make_assignments} {
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 	set_global_assignment -name VHDL_FILE stop_watch.vhd
 	set_global_assignment -name VHDL_FILE "modCounter component/VHDL/modCounter.vhd"
-	set_global_assignment -name VHDL_FILE "clock component/VHDL/clock.vhd"
 	set_global_assignment -name VHDL_FILE "seven seg component/VHDL/sev_segs.vhd"
 	set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 	set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 	set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+	set_global_assignment -name VHDL_FILE clock_tb.vhd
+	set_global_assignment -name VHDL_FILE clock_1k.vhd
 	set_location_assignment PIN_AF14 -to i_50MHz
 	set_location_assignment PIN_AA15 -to i_clr
 	set_location_assignment PIN_AA14 -to i_st
