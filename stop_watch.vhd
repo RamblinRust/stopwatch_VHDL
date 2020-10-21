@@ -132,11 +132,12 @@ begin
 	--end seven seg declarations
 	
 	--mod 10 declarations
+	--the clears are nots because the button is active low...
 	mod10_0 : modCounter
 		port map(
 					i_clk => w_clk,
 					i_en => r_started,
-					i_clr => i_clr,
+					i_clr => not(i_clr),
 					o_num => r_thousandths,
 					o_co => w_co0
 				  );
@@ -145,7 +146,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co0,
-					i_clr => i_clr,
+					i_clr => not(i_clr),
 					o_num => r_hundredths,
 					o_co => w_co1
 				  );
@@ -154,7 +155,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co1,
-					i_clr => i_clr,
+					i_clr => not(i_clr),
 					o_num => r_tenths,
 					o_co => w_co2
 				  );
@@ -163,7 +164,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co2,
-					i_clr => i_clr,
+					i_clr => not(i_clr),
 					o_num => r_ones,
 					o_co => w_co3
 				  );
@@ -172,7 +173,7 @@ begin
 		port map(
 					i_clk => w_clk,
 					i_en => w_co3,
-					i_clr => i_clr,
+					i_clr => not(i_clr),
 					o_num => r_tens,
 					o_co => open
 				  );
