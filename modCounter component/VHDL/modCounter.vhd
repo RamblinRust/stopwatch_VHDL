@@ -22,6 +22,8 @@ begin
 	--on the clock update the number and carry out registers
 	process (i_clk, i_clr) 
 	begin
+		r_number <= r_number;
+		r_co <= r_co;
 		if(i_clr = '1') then
 			r_number <= 0;
 			r_co <= '0';
