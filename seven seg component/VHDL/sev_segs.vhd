@@ -45,12 +45,12 @@ begin
 							"1110001" when "1111",--f							
 						 	"0000000" when others;
 
-	o_top  <= w_segments(0);						
-	o_rtop <= w_segments(1);
-	o_rbot <= w_segments(2);
-	o_bot	 <= w_segments(3);
-	o_lbot <= w_segments(4);
-	o_ltop <= w_segments(5);
-	o_mid	 <= w_segments(6);
+	o_top  <= not(w_segments(0));--lights are active low... oops						
+	o_rtop <= not(w_segments(1));
+	o_rbot <= not(w_segments(2));
+	o_bot	 <= not(w_segments(3));
+	o_lbot <= not(w_segments(4));
+	o_ltop <= not(w_segments(5));
+	o_mid	 <= not(w_segments(6));
 	--o_dp	<= i_dp;
 end decoder;
