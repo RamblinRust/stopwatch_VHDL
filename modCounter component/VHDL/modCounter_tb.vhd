@@ -1,4 +1,5 @@
-
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity modCounter_tb is
 end modCounter_tb;
@@ -9,7 +10,7 @@ architecture tb of modCounter_tb is
 	
 	signal r_clock : std_logic := '0';
 	signal w_en, w_clr : std_logic := '0';
-	signal w_num : std_logic_vector(3 downto 0) := (others <= '0');
+	signal w_num : std_logic_vector(3 downto 0) := (others => '0');
 	signal w_co	: std_logic := '0';
 
 	component modCounter is
@@ -24,7 +25,7 @@ architecture tb of modCounter_tb is
 
 begin
 
-	modCounter
+	testCounter : modCounter
 	port map(
 			i_clk => r_clock,--clock
 			i_en	=> w_en,--enable 
@@ -41,6 +42,14 @@ begin
 	
 	process
 	begin
+		
+		w_en <= '1'; --enable pin
+		wait for 240 ns;
+		W_clr <= '1';
+		wait for 40 ns;
+		w_en <= '0';
+		w_clr <= '0';
+		wait for 20 ns;
 		
 	end process;
 	
