@@ -10,8 +10,8 @@ architecture tb of modCounter_tb is
 	
 	signal r_clock : std_logic := '0';
 	signal w_en, w_clr : std_logic := '0';
-	signal w_num : std_logic_vector(3 downto 0) := (others => '0');
-	signal w_co	: std_logic := '0';
+	signal w_num, w_num2 : std_logic_vector(3 downto 0) := (others => '0');
+	signal w_co, w_co2	: std_logic := '0';
 
 	component modCounter is
 	port(
@@ -32,6 +32,15 @@ begin
 			i_clr	=> w_clr, --clear
 			o_num	=> w_num, --number out
 			o_co	=> w_co --carry out
+		 );
+
+	testCounter2 : modCounter
+	port map(
+			i_clk => r_clock,--clock
+			i_en	=> w_co,--enable 
+			i_clr	=> w_clr, --clear
+			o_num	=> w_num2, --number out
+			o_co	=> w_co2 --carry out
 		 );
 	
 	process
