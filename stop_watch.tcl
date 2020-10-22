@@ -15,7 +15,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: stop_watch.tcl
-# Generated on: Thu Oct 15 02:26:23 2020
+# Generated on: Wed Oct 21 20:49:53 2020
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
