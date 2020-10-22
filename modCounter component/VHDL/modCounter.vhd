@@ -15,7 +15,7 @@ entity modCounter is
 end modCounter;
 
 architecture modulus of modCounter is
-	signal r_number, r_next_number : integer := 0;
+	signal r_number, r_next_number : unsigned(3 downto 0) := (others => '0');
 	signal r_co, r_next_co : std_logic;
 begin
 	
@@ -25,7 +25,7 @@ begin
 		r_number <= r_number;
 		r_co <= r_co;
 		if(i_clr = '1') then
-			r_number <= 0;
+			r_number <= (others => '0');
 			r_co <= '0';
 		elsif rising_edge(i_clk) then
 			r_number <= r_next_number;
@@ -45,11 +45,11 @@ begin
 			if(r_number = 8) then
 				r_next_co <= '1';
 			elsif(r_number = 9) then
-				r_next_number <= 0;
+				r_next_number <= (others => '0');
 			end if;
 		end if;
 	end process;
 	
-	o_num <= std_logic_vector(to_unsigned(r_number,o_num'length));
+	o_num <= std_logic_vector(r_number);
 	o_co <= r_co;
 end modulus;
