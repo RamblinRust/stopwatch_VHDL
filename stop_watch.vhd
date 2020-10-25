@@ -133,53 +133,53 @@ begin
 	
 	--mod 10 declarations
 	--the clears are nots because the button is active low...
-	mod10_0 : modCounter
+	mod10_0 : modCounter --thousandths place (milliseconds)
 		port map(
-					i_clk => w_clk,
+					i_clk => w_clk, --the 1KHz clock
 					i_en => r_started,
-					i_clr => not(i_clr),
-					o_num => r_thousandths,
-					o_co => w_co0
+					i_clr => not(i_clr), --clear the mod counter (the not is because button is active-low)
+					o_num => r_thousandths, --the 4-bit output of the modcounter which is connected to the Thousandths place seven seg
+					o_co => w_co0 --carry-out, used to clock hundredths place
 				  );
 				  
-	mod10_1 : modCounter
+	mod10_1 : modCounter --hundredths place
 		port map(
-					i_clk => not(w_co0),
+					i_clk => not(w_co0), --clocked by the falling edge of the carry-out of the thousandths place
 					i_en => r_started,
 					i_clr => not(i_clr),
-					o_num => r_hundredths,
-					o_co => w_co1
+					o_num => r_hundredths, --the 4-bit output of the modcounter which is connected to the Hundredths place seven seg
+					o_co => w_co1 --carry-out, used to clock tenths place
 				  );
 				  
-	mod10_2 : modCounter
+	mod10_2 : modCounter --tenths place
 		port map(
-					i_clk => not(w_co1),
+					i_clk => not(w_co1), --clocked by the falling edge of the carry-out of the hundredths place
 					i_en => r_started,
-					i_clr => not(i_clr),
-					o_num => r_tenths,
-					o_co => w_co2
+					i_clr => not(i_clr), 
+					o_num => r_tenths, --the 4-bit output of the modcounter which is connected to the tenths place seven seg
+					o_co => w_co2 --carry-out, used to clock ones place
 				  );
 	
-	mod10_3 : modCounter
+	mod10_3 : modCounter --ones place (seconds)
 		port map(
-					i_clk => not(w_co2),
+					i_clk => not(w_co2), --clocked by the falling edge of the carry-out of the tenths place
 					i_en => r_started,
 					i_clr => not(i_clr),
-					o_num => r_ones,
-					o_co => w_co3
+					o_num => r_ones, --the 4-bit output of the modcounter which is connected to the ones place seven seg
+					o_co => w_co3 --carry-out, used to clock tenss place
 				  );
 				  
-	mod10_4 : modCounter
+	mod10_4 : modCounter --tens place
 		port map(
-					i_clk => not(w_co3),
+					i_clk => not(w_co3), --clocked by the falling edge of the carry-out of the ones place
 					i_en => r_started,
 					i_clr => not(i_clr),
-					o_num => r_tens,
-					o_co => open
+					o_num => r_tens, --the 4-bit output of the modcounter which is connected to the tens place seven seg
+					o_co => open --left open because there is no higher second recorded
 				  );
 	--end mod 10 declarations
 	
-	--laches and unlaches the start
+	--latches and unlatches the start
 	process(i_st)
 	begin
 		if rising_edge(i_st) then
