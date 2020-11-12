@@ -41,14 +41,24 @@ architecture watch of stop_watch is
 			);
 	end component;
 	
-	component modCounter is
+--	component modCounter is
+--		port(
+--				i_clk : in std_logic;--clock
+--				i_en	: in std_logic;--enable
+--				i_clr	: in std_logic; --clear
+--				o_num	: out std_logic_vector(3 downto 0); --number out
+--				o_co	: out std_logic --carry out
+--			 );
+--	end component;
+	
+	component gen_Counter is
+		generic(N : in natural := 4);
 		port(
-				i_clk : in std_logic;--clock
-				i_en	: in std_logic;--enable
-				i_clr	: in std_logic; --clear
-				o_num	: out std_logic_vector(3 downto 0); --number out
-				o_co	: out std_logic --carry out
-			 );
+			i_clk, i_en, i_ld, i_up, i_clr : in std_logic;
+			i_ldVal	: in std_logic_vector(N-1 downto 0);
+			o_co		: out std_logic;
+			o_cnt 	: out std_logic_vector(N-1 downto 0)
+		);
 	end component;
 	
 	signal w_clk 		: std_logic := '0';
